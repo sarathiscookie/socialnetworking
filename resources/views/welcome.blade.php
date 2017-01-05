@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Social networking using laravel 5.3 and vue js 2
                 </div>
 
                 <div class="links">
