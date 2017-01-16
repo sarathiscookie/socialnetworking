@@ -64,10 +64,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         if($data['gender']){
-            $avatar = "public/avatar/male.jpg";//male
+            $avatar = storage_path('app/public/avatar/male.jpg');//male
         }
         else{
-            $avatar = "public/avatar/female.jpg";//female
+            $avatar = storage_path('app/public/avatar/female.jpg');//female
         }
 
         return User::create([
