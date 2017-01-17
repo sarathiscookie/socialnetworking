@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -11,9 +12,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        return view('profile.index');
+        $user    = User::where('slug', $slug)
+            ->first();
+        return view('profile.index')->with('user', $user);
     }
 
     /**

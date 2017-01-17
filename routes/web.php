@@ -20,5 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function(){
-   Route::get('/profile', 'ProfileController@index'); 
+   Route::get('/profile/{slug}', [
+       'as' => 'profileSlug', 'uses' => 'ProfileController@index'
+   ]);
 });
