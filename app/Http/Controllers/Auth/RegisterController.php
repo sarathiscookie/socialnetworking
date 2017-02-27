@@ -7,6 +7,7 @@ use App\Profile;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -71,16 +72,23 @@ class RegisterController extends Controller
             $avatar = 'public/avatar/female.jpg';//female
         }
 
-        $user =  User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
-            'gender'   => $data['gender'],
-            'slug'     => str_slug($data['name']),
-            'avatar'   => $avatar,
-        ]);
-        
-        Profile::create(['user_id' => $user->id]);
+        DB::beginTransaction();
+        try{
+            $user =  User::create([
+                'name'     => $data['name'],
+                'email'    => $data['email'],
+                'password' => bcrypt($data['password']),
+                'gender'   => $data['gender'],
+                'slug'     => str_slug($data['name']),
+                'avatar'   => $avatar,
+            ]);
+
+            Profile::create(['user_id' => $user->id]);
+            DB::commit();
+        }
+        catch (\Exception $e){
+            DB::rollBack();
+        }
         return $user;
     }
 }

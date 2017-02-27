@@ -27,8 +27,35 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     *
+     * Mutators for name
+     *
+     */
+    public function setNameAttribute($value)
+    {
+      $this->attributes['name'] = strtolower($value);
+    }
+
+    /**
+     *
+     * Accessors for name
+     *
+     */
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     *
+     * Eloquent ORM relationship one to one
+     *
+     */
     public function profile()
     {
         $this->hasOne('App\Profile');
     }
+
+
 }
